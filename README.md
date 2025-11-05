@@ -16,6 +16,7 @@ It focuses on diagnostics and device tooling: advanced Wi-Fi utilities, Bluetoot
 ## Quick install
 ```bash
 # If you have curl and git:
-git clone https://github.com/YOURUSER/V0ID3A6-GhostConsole.git
+git clone https://github.com/V0ID-D3A6/V0ID3A6-GhostConsole.git
 cd V0ID3A6-GhostConsole
 ./install.sh
+./ghost.sh

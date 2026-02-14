@@ -30,13 +30,6 @@ On Termux:
 pkg update && pkg install -y bash curl iputils whois dnsutils
 ```
 
-On Windows:
-
-* Install **Git for Windows**
-* Use **Git Bash** terminal
-
----
-
 ### Installation
 
 Clone the repository:

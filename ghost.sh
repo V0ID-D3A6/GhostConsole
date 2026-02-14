@@ -1,51 +1,76 @@
+
 #!/usr/bin/env bash
-# V0ID3A6 GhostConsole - Bash launcher (light)
+# GhostConsole - Bash launcher
 set -e
 REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
-LOG_DIR="$HOME/.v0id_logs"
+LOG_DIR="$HOME/.ghostconsole"
+SESSION_LOG="$LOG_DIR/session.log"
 mkdir -p "$LOG_DIR"
-STEALTH=0
 
-for arg in "$@"; do
-  case "$arg" in
+# record action helper
+log() {
+  local tag="$1"; shift
+  local txt="$*"
+  echo "[$(date -u +"%Y-%m-%dT%H:%M:%SZ")] [$tag] $txt" >> "$SESSION_LOG"
+}
+
+# parse args
+STEALTH=0
+for a in "$@"; do
+  case "$a" in
     --stealth) STEALTH=1 ;;
-    --python) exec python3 "$REPO_DIR/ghost.py" "$@" ;;
   esac
 done
 
+# banner
 cat <<'BANNER'
-
- _   _  ____  ___ ___   ___  _   _ ____ ___ _   _ ___ _   _ 
-| | | |/ ___|/ _ \_ _| / _ \| | | / ___|_ _| \ | |_ _| \ | |
-| | | | |  _| | | | | | | | | | | \___ \| ||  \| || ||  \| |
-| |_| | |_| | |_| | | | |_| | |_| |___) | || |\  || || |\  |
- \___/ \____|\___/___| \__\_\\___/|____/___|_| \_|___|_| \_|
+  ____  _               _   ____                      
+ / ___|| |__   ___  ___| |_| ___|  ___  ___  ___  ___ 
+ \___ \| '_ \ / _ \/ __| __|___ \ / _ \/ __|/ _ \/ __|
+  ___) | | | |  __/ (__| |_ ___) |  __/\__ \  __/\__ \
+ |____/|_| |_|\___|\___|\__|____/ \___||___/\___||___/
  
-V0ID3A6 GhostConsole
-
+GhostConsole
 BANNER
 
-PS3="Choose an option: "
-options=("Wi-Fi Tools" "Bluetooth Tools" "System Info" "Secure Notes" "View Session Logs" "Exit")
-select opt in "${options[@]}"; do
-  case $REPLY in
+while true; do
+  echo ""
+  echo "GhostConsole — Main Menu"
+  echo "1) Wi-Fi Tools"
+  echo "2) Bluetooth Tools"
+  echo "3) System Info"
+  echo "4) Secure Notes"
+  echo "5) View Session Logs"
+  echo "0) Exit"
+  read -p "Choose an option [0-5]: " CH
+  case "$CH" in
     1)
-      python3 "$REPO_DIR/modules/wifi_tools.py"
+      log "UI" "Entered Wi-Fi Tools"
+      bash "$REPO_DIR/modules/wifi.sh" $([ $STEALTH -eq 1 ] && echo "--stealth")
       ;;
     2)
-      python3 "$REPO_DIR/modules/bt_tools.py"
+      log "UI" "Entered Bluetooth Tools"
+      bash "$REPO_DIR/modules/bt.sh" $([ $STEALTH -eq 1 ] && echo "--stealth")
       ;;
     3)
-      if command -v neofetch >/dev/null 2>&1; then neofetch; else uname -a; df -h; free -m; fi
+      log "UI" "Show System Info"
+      if command -v neofetch >/dev/null 2>&1; then neofetch; else uname -a; df -h; free -m || true; fi
       ;;
     4)
-      python3 "$REPO_DIR/modules/secure_notes.py"
+      log "UI" "Secure Notes"
+      bash "$REPO_DIR/modules/logger.sh" --notes
       ;;
     5)
-      python3 "$REPO_DIR/modules/logger.py" --view
+      log "UI" "View Session Logs"
+      bash "$REPO_DIR/modules/logger.sh" --view
       ;;
-    6) break ;;
-    *) echo "Invalid option" ;;
+    0)
+      log "UI" "Exit"
+      echo "Bye."
+      exit 0
+      ;;
+    *)
+      echo "Invalid selection."
+      ;;
   esac
-  break
 done

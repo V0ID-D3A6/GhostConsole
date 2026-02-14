@@ -1,92 +1,6 @@
-<<<<<<< HEAD
-
-
----
-
-
-## secure_notes.py — improved (KDF: scrypt) (modules/secure_notes.py)
-
-
-```python
-#!/usr/bin/env python3
-import os
-import getpass
-from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
-from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.backends import default_backend
-from cryptography.fernet import Fernet
-import base64
-
-
-KEY_FILE = os.path.expanduser('~/.v0id_key')
-NOTES_DIR = os.path.expanduser('~/.v0id_notes')
-SALT_FILE = os.path.expanduser('~/.v0id_salt')
-
-
-os.makedirs(NOTES_DIR, exist_ok=True)
-
-
-# derive key from password using scrypt
-def derive_key(password: str, salt: bytes) -> bytes:
-kdf = Scrypt(salt=salt, length=32, n=2**14, r=8, p=1, backend=default_backend())
-key = kdf.derive(password.encode())
-return base64.urlsafe_b64encode(key)
-
-
-def init_salt():
-if not os.path.exists(SALT_FILE):
-salt = os.urandom(16)
-with open(SALT_FILE, 'wb') as f:
-f.write(salt)
-else:
-with open(SALT_FILE, 'rb') as f:
-salt = f.read()
-return salt
-
-
-def create_note():
-salt = init_salt()
-pwd = getpass.getpass('Set a password for notes: ')
-key = derive_key(pwd, salt)
-f = Fernet(key)
-title = input('Title: ')
-content = input('Note content: ')
-token = f.encrypt(content.encode())
-with open(os.path.join(NOTES_DIR, f'{title}.note'), 'wb') as fh:
-fh.write(token)
-print('Note saved.')
-
-
-def read_note():
-if not os.path.exists(SALT_FILE):
-print('No notes found')
-return
-salt = init_salt()
-pwd = getpass.getpass('Enter password: ')
-key = derive_key(pwd, salt)
-f = Fernet(key)
-title = input('Title to read: ')
-path = os.path.join(NOTES_DIR, f'{title}.note')
-if not os.path.exists(path):
-print('Note not found')
-return
-token = open(path, 'rb').read()
-try:
-print(f.decrypt(token).decode())
-except Exception:
-print('Failed to decrypt. Wrong password?')
-
-
-if __name__ == '__main__':
-action = input('Create (c) or Read (r)? ')
-if action.lower().startswith('c'):
-create_note()
-else:
-read_note()
-=======
 MIT License
 
-Copyright (c) 2025 V0ID-D3A6
+Copyright (c) 2026 V0ID-D3A6
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -105,4 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
->>>>>>> 302c3289144fa1476c6db0978b8b07dc9a1ada38

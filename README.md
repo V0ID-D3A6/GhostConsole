@@ -32,20 +32,13 @@ pkg update && pkg install -y bash curl iputils whois dnsutils
 
 ## Quick install
 ```bash
-# If you have curl and git:
 git clone https://github.com/V0ID-D3A6/GhostConsole.git
 cd GhostConsole
 chmod +x ghost.sh install.sh
 ./install.sh
 ./ghost.sh
 
----
-
-### Run
-
 Start the tool with:
-
-```bash
 ./ghostconsole.sh
 ```
 

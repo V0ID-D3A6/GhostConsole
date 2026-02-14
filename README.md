@@ -34,11 +34,7 @@ pkg update && pkg install -y bash curl iputils whois dnsutils
 ```bash
 git clone https://github.com/V0ID-D3A6/GhostConsole.git
 cd GhostConsole
-chmod +x ghost.sh install.sh
-./install.sh
-./ghost.sh
-
-Start the tool with:
+chmod +x ghostconsole.sh
 ./ghostconsole.sh
 ```
 

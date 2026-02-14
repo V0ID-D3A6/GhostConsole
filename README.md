@@ -4,11 +4,10 @@
 
 ### Requirements
 
-GhostConsole PRO is a Bash-based CLI tool. It works on:
+GhostConsole is a Bash-based CLI tool. It works on:
 
 * **Linux (including Kali Linux)**
 * **Termux (Android, no root required)**
-* **Git Bash (Windows)**
 
 Minimal required packages (some features are optional):
 

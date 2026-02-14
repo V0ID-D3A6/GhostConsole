@@ -30,20 +30,14 @@ On Termux:
 pkg update && pkg install -y bash curl iputils whois dnsutils
 ```
 
-### Installation
-
-Clone the repository:
-
+## Quick install
 ```bash
+# If you have curl and git:
 git clone https://github.com/V0ID-D3A6/GhostConsole.git
 cd GhostConsole
-```
-
-Make the script executable:
-
-```bash
-chmod +x ghostconsole.sh
-```
+chmod +x ghost.sh install.sh
+./install.sh
+./ghost.sh
 
 ---
 
@@ -127,7 +121,7 @@ This project is intended for educational and administrative purposes only. The a
 
 **Notes:**
 
-* Works on Linux, Termux, and Git Bash
+* Works on Linux, Termux.
 * Uses a safe mode to avoid administrative privilege issues
 
 ---

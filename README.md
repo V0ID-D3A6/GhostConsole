@@ -42,7 +42,7 @@ On Windows:
 Clone the repository:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/GhostConsole.git
+git clone https://github.com/V0ID-D3A6/GhostConsole.git
 cd GhostConsole
 ```
 

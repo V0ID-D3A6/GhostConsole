@@ -1,4 +1,4 @@
-# GhostConsole PRO
+# GhostConsole 
 
 ## Installation & Usage
 
@@ -42,8 +42,8 @@ On Windows:
 Clone the repository:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/GhostConsole-PRO.git
-cd GhostConsole-PRO
+git clone https://github.com/YOUR_USERNAME/GhostConsole.git
+cd GhostConsole
 ```
 
 Make the script executable:
